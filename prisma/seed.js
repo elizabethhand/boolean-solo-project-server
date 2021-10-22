@@ -1,33 +1,39 @@
-const { PrismaClient } = require("@prisma/client")
+const { PrismaClient } = require("@prisma/client");
 
-const prisma = new PrismaClient()
+const dbClient = new PrismaClient();
+
+const {
+    restaurants,
+    categories,
+    deals
+} = require("../utils/mockdata");
 
 async function seed() {
-    const users = [
-        {
-            email: "mike@mail.com",
-        },
-        {
-            email: "nathan@mail.com",
-        },
-    ]
 
-    const userPromises = users.map(async user => {
-        return await prisma.user.create({ data: user })
-    })
+    for (const restaurant of restaurants) {
+        await dbClient.restaurant.create({
+            data: restaurant,
+        });
+    }
 
-    try {
-        await Promise.all(userPromises)
-    } catch (error) {
-        console.error("[ERROR] Seeding user model: ", {
-            code: error.code,
-            error: error.message,
-        })
+    for (const category of categories) {
+        await dbClient.category.create({
+            data: category,
+        });
+    }
 
-        process.exit(1)
-    } finally {
-        await prisma.$disconnect()
+    for (const deal of deals) {
+        await dbClient.deal.create({
+            data: deal,
+        });
     }
 }
 
 seed()
+    .catch((e) => {
+        console.error(e);
+        process.exit(1);
+    })
+    .finally(async () => {
+        await dbClient.$disconnect();
+    });
