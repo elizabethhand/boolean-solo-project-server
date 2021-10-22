@@ -10,9 +10,9 @@ const {
 
 async function seed() {
 
-    for (const restaurant of restaurants) {
-        await dbClient.restaurant.create({
-            data: restaurant,
+    for (const restuarant of restuarants) {
+        await dbClient.restuarant.create({
+            data: restuarant,
         });
     }
 
