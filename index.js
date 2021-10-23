@@ -2,6 +2,7 @@ require("dotenv").config()
 const categoryRouter = require("./src/resources/categories/router")
 const dealRouter = require("./src/resources/deals/router")
 const cafeRouter = require("./src/resources/cafes/router")
+const usersRouter = require("./src/resources/users/router")
 
 const express = require("express")
 const cors = require("cors")
@@ -23,6 +24,7 @@ app.use(morgan("dev"))
 app.use("/categories", categoryRouter);
 app.use("/deals", dealRouter);
 app.use("/cafe", cafeRouter);
+app.use("/register", usersRouter)
 
 app.get("*", (req, res) => {
     res.json({ ok: true })
