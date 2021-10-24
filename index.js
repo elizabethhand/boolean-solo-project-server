@@ -3,6 +3,7 @@ const categoryRouter = require("./src/resources/categories/router")
 const dealRouter = require("./src/resources/deals/router")
 const cafeRouter = require("./src/resources/cafes/router")
 const usersRouter = require("./src/resources/users/router")
+const authRouter = require("./src/resources/auth/router")
 
 const express = require("express")
 const cors = require("cors")
@@ -20,6 +21,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan("dev"))
 
 /* SETUP ROUTES */
+
+app.use(authRouter)
 
 app.use("/user", usersRouter)
 app.use("/categories", categoryRouter);
