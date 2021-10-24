@@ -20,4 +20,14 @@ const getOneCafe = async (req, res) => {
     }
 };
 
-module.exports = { getOneCafe }
+const getAllCafes = async (req, res) => {
+
+    try {
+        const foundRestaurants = await restaurant.findMany()
+        res.json({ data: foundRestaurants });
+    } catch (error) {
+        res.json({ error: error.message });
+    }
+};
+
+module.exports = { getOneCafe, getAllCafes }
