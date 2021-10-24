@@ -1,22 +1,19 @@
 const { user } = require("../../../utils/database");
+const userClient = require("./service")
+const createToken = require("../../../utils/authgenerator")
 
 const createUser = async (req, res) => {
     const newUser = req.body
 
-    try {
-        const createdUser = await user.create({
-            data: {
-                email: newUser.email,
-                firstname: newUser.firstName,
-                lastname: newUser.lastName,
-                username: newUser.username,
-                password: newUser.password
-            },
-        })
-        res.json({ data: createdUser });
-    } catch (error) {
-        res.json({ error: error.message });
-    }
-};
+    const savedUser = await userClient.createwithHash(newUser)
+
+    const token = createToken({
+        id: savedUser.id,
+        username: savedUser.username
+    })
+
+    res.cookie("token", token)
+    res.json({ data: { username: savedUser } })
+}
 
 module.exports = { createUser };
