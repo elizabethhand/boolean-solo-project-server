@@ -22,7 +22,7 @@ app.use(morgan("dev"))
 
 /* SETUP ROUTES */
 
-// app.use(authRouter)
+app.use(authRouter)
 
 app.use("/user", usersRouter)
 app.use("/categories", categoryRouter);
