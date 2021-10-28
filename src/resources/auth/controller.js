@@ -7,7 +7,6 @@ const loginUser = async (req, res) => {
     try {
         const loggedUser = await findUserWithValidation(userCreds)
 
-
         const token = createToken({
             id: loggedUser.id,
             role: loggedUser.role,
